@@ -1,0 +1,1 @@
+/*! <%= pkg.name %> - <%= config.variant %> v<%= pkg.version %> | (c) 2015 Sparta Systems, Inc. */

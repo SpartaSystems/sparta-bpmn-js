@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:camunda="http://activiti.org/bpmn" xmlns:ssi="http://www.spartasystems.com/bpmn2" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="_oQldgJhiEeSQ552e2GAF4A" targetNamespace="http://activiti.org/bpmn" exporter="camunda modeler" exporterVersion="2.6.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <bpmn2:collaboration id="_Collaboration_3">
+    <bpmn2:participant id="TEST_PROCESS" name="TEST_PROCESS" processRef="TEST_PROCESS-1" />
+  </bpmn2:collaboration>
+  <bpmn2:process id="TEST_PROCESS-1" name="TEST_PROCESS" isExecutable="true">
+    <bpmn2:userTask id="ReviewComplaint" name="Review" camunda:candidateGroups="supplier_user">
+      <bpmn2:incoming>SequenceFlow_15</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_3" name="" sourceRef="ReviewComplaint" targetRef="DistributeAcknowledge" />
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="DistributeAcknowledge" targetRef="CallActivity_18jo0ii" ssi:allowDrop="bpmn:CallActivity" />
+    <bpmn2:startEvent id="CreateComplaint" name="Supervisor Review">
+      <bpmn2:outgoing>SequenceFlow_15</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_15" name="" sourceRef="CreateComplaint" targetRef="ReviewComplaint" />
+    <bpmn2:sequenceFlow id="SequenceFlow_22" name="" sourceRef="SubmitRCA" targetRef="Closed-NoCAPA" />
+    <bpmn2:sequenceFlow id="SequenceFlow_0zuf490" sourceRef="CallActivity_18jo0ii" targetRef="SubmitRCA" />
+    <bpmn2:endEvent id="Closed-NoCAPA" name="End">
+      <bpmn2:incoming>SequenceFlow_22</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:userTask id="SubmitRCA" name="Submit RCA" camunda:candidateGroups="supplier_user">
+      <bpmn2:incoming>SequenceFlow_0zuf490</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_22</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:serviceTask id="DistributeAcknowledge" name="Acknowledge" camunda:class="com.spartasystems.stratas.qms.bpmn.delegates.UpdateQRDelegate">
+      <bpmn2:incoming>SequenceFlow_3</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:callActivity id="CallActivity_18jo0ii" name="Investigation" calledElement="${workflowResolver.getProcessKey(&#39;Investigation_FAINOR&#39;)}" ssi:droppable="true">
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_0zuf490</bpmn2:outgoing>
+    </bpmn2:callActivity>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="_Collaboration_3">
+      <bpmndi:BPMNShape id="_BPMNShape_Participant_5" bpmnElement="TEST_PROCESS" isHorizontal="true">
+        <dc:Bounds x="0" y="14" width="2005" height="348" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_6" bpmnElement="CreateComplaint">
+        <dc:Bounds x="180" y="74" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="143" y="52" width="110" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_57" bpmnElement="ReviewComplaint">
+        <dc:Bounds x="144" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_5" bpmnElement="DistributeAcknowledge">
+        <dc:Bounds x="495" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_60" bpmnElement="SubmitRCA">
+        <dc:Bounds x="1463" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_30" bpmnElement="Closed-NoCAPA">
+        <dc:Bounds x="1878" y="252" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1827" y="294" width="138" height="22" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_40" bpmnElement="SequenceFlow_22" sourceElement="_BPMNShape_UserTask_72" targetElement="_BPMNShape_EndEvent_30">
+        <di:waypoint xsi:type="dc:Point" x="1563" y="270" />
+        <di:waypoint xsi:type="dc:Point" x="1721" y="270.00000000000006" />
+        <di:waypoint xsi:type="dc:Point" x="1721" y="270" />
+        <di:waypoint xsi:type="dc:Point" x="1878" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1831" y="64" width="6" height="6" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_27" bpmnElement="SequenceFlow_15" sourceElement="_BPMNShape_StartEvent_6" targetElement="_BPMNShape_UserTask_57">
+        <di:waypoint xsi:type="dc:Point" x="198" y="110" />
+        <di:waypoint xsi:type="dc:Point" x="198" y="165" />
+        <di:waypoint xsi:type="dc:Point" x="194" y="165" />
+        <di:waypoint xsi:type="dc:Point" x="194" y="230" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="191" y="200" width="6" height="6" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_3" bpmnElement="SequenceFlow_3" sourceElement="_BPMNShape_UserTask_57" targetElement="_BPMNShape_ServiceTask_5">
+        <di:waypoint xsi:type="dc:Point" x="244" y="270" />
+        <di:waypoint xsi:type="dc:Point" x="495" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="269" y="270" width="6" height="6" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_ServiceTask_5" targetElement="_BPMNShape_UserTask_60">
+        <di:waypoint xsi:type="dc:Point" x="595" y="270" />
+        <di:waypoint xsi:type="dc:Point" x="924" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="449" y="270" width="6" height="6" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="CallActivity_18jo0ii_di" bpmnElement="CallActivity_18jo0ii">
+        <dc:Bounds x="924" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zuf490_di" bpmnElement="SequenceFlow_0zuf490">
+        <di:waypoint xsi:type="dc:Point" x="1024" y="270" />
+        <di:waypoint xsi:type="dc:Point" x="1463" y="270" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="715" y="260" width="0" height="0" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>

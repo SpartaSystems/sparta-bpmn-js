@@ -1,0 +1,7 @@
+/*!
+ * <%= pkg.name %> - <%= config.variant %> v<%= pkg.version %>
+
+ * Copyright 2015 Sparta Systems, Inc.
+ *
+ * Date: <%= grunt.template.today("yyyy-mm-dd") %>
+ */
