@@ -2,6 +2,8 @@
 
 require('bpmn-js/test/TestHelper');
 
+var TestContainer = require('mocha-test-container-support');
+
 var SpartaModeler = require('../../lib/SpartaModeler');
 
 
@@ -10,7 +12,7 @@ describe('SpartaModeler', function() {
     var container;
 
     beforeEach(function() {
-        container = jasmine.getEnv().getTestContainer();
+        container = TestContainer.get(this);
     });
 
 
@@ -25,7 +27,7 @@ describe('SpartaModeler', function() {
     }
 
 
-    iit('test', function(done) {
+    it.only('test', function(done) {
         var xml = require('../fixtures/bpmn/SpartaRules.bpmn');
         createModeler(xml, done);
     });

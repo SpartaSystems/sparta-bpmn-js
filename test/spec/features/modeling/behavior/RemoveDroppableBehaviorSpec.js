@@ -2,6 +2,8 @@
 
 var TestHelper = require('bpmn-js/test/TestHelper');
 
+var TestContainer = require('mocha-test-container-support');
+
 var domQuery = require('min-dom/lib/query');
 
 /* global bootstrapViewer, inject */
@@ -33,7 +35,7 @@ describe('features/modeling/behavior - Remove Call Activity', function() {
 
     var container;
     beforeEach(function() {
-      container = jasmine.getEnv().getTestContainer();
+      container = TestContainer.get(this);
     });
 
     it('CallActivity\'s source and target element should automatically reconnect',

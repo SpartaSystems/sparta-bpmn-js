@@ -2,6 +2,8 @@
 
 require('bpmn-js/test/TestHelper');
 
+var TestContainer = require('mocha-test-container-support');
+
 /* global bootstrapViewer, inject */
 
 var contextPadModule = require('../../../../lib/features/context-pad'),
@@ -32,7 +34,7 @@ describe('features - context-pad', function() {
 
         var container;
         beforeEach(function() {
-            container = jasmine.getEnv().getTestContainer();
+            container = TestContainer.get(this);
         });
 
         it('should not display delete button for "locked-down" items ',
